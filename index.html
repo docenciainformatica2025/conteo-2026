@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>¡Feliz 2026! - Familia Rodríguez Solís</title>
+    
+    <meta property="og:title" content="¡Feliz Año Nuevo 2026!">
+    <meta property="og:description" content="Cuenta regresiva oficial de la Familia Rodríguez Solís. El futuro se construye hoy.">
+    <meta property="og:image" content="preview.jpg"> <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Reset y estilos base */
+        * { box-sizing: border-box; }
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            /* Fondo de imagen similar al diseño */
+            background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            overflow-x: hidden;
+            /* Capa oscura para mejorar lectura */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Contenedor principal centrado */
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Estilos del Contador */
+        .countdown-wrapper {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        /* Esfera de fondo tech */
+        .tech-sphere {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(0,198,255,0.2) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .countdown-box {
+            background: rgba(13, 20, 40, 0.8);
+            border: 3px solid #00c6ff;
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 0 40px rgba(0, 198, 255, 0.6), inset 0 0 20px rgba(0, 198, 255, 0.3);
+            backdrop-filter: blur(5px);
+            display: inline-block;
+        }
+
+        .countdown-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #00c6ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        #timer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .time-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 15px #00c6ff;
+            line-height: 1;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #00c6ff;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .separator {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #00c6ff;
+            line-height: 1;
+            margin-top: -5px;
+        }
+
+        .countdown-footer {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #00c6ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.8rem;
+            display: block;
+        }
+
+        /* Estilos del Mensaje EXACTO */
+        .message-container {
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            max-width: 900px;
+        }
+
+        .line-white {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0.2rem 0;
+            line-height: 1.1;
+            color: #ffffff;
+        }
+
+        .line-gold {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin: 1rem 0 0.5rem 0;
+            line-height: 1.1;
+            color: #ffd700; /* Dorado */
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .signature {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-top: 1.5rem;
+            text-transform: none; /* Firma no va en mayúsculas */
+            color: #eeeeee;
+        }
+
+        /* Confeti */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            display: none; /* Oculto hasta el final */
+        }
+
+        /* RESPONSIVE DESIGN (Adaptación a celulares) */
+        @media (max-width: 768px) {
+            .countdown-box {
+                padding: 1rem;
+                width: 100%;
+            }
+            .number { font-size: 2.2rem; }
+            .separator { font-size: 2.2rem; margin-top: 0; }
+            .label { font-size: 0.6rem; }
+            .countdown-title, .countdown-footer { font-size: 0.9rem; }
+            
+            .line-white { font-size: 1.3rem; }
+            .line-gold { font-size: 1.4rem; margin-top: 0.8rem; }
+            .signature { font-size: 0.9rem; margin-top: 1rem;}
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div class="main-container">
+        <div class="countdown-wrapper">
+            <div class="tech-sphere"></div>
+            <div class="countdown-box">
+                <span class="countdown-title">FALTAN:</span>
+                <div id="timer">
+                    <div class="time-segment"><span class="number" id="days">00</span><span class="label">DÍAS</span></div>
+                    <span class="separator">:</span>
+                    <div class="time-segment"><span class="number" id="hours">00</span><span class="label">HORAS</span></div>
+                    <span class="separator">:</span>
+                    <div class="time-segment"><span class="number" id="minutes">00</span><span class="label">MIN</span></div>
+                    <span class="separator">:</span>
+                    <div class="time-segment"><span class="number" id="seconds">00</span><span class="label">SEG</span></div>
+                </div>
+                <span class="countdown-footer">PARA EL 2026</span>
+            </div>
+        </div>
+
+        <div class="message-container">
+            <div class="line-white">EL FUTURO SE CONSTRUYE HOY.</div>
+            <div class="line-white">VISUALIZA, CREE Y CREA.</div>
+            <div class="line-gold">QUE EL 2026 SEA EL INICIO DE TU MEJOR VERSIÓN.</div>
+            <div class="signature">Con nuestros mejores deseos, la Familia Rodríguez Solís.</div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN FECHA ---
+        // Para probar, cambia el año a 2025 y pon una hora cercana.
+        // FECHA FINAL REAL: "Jan 1, 2026 00:00:00"
+        const targetDate = new Date("Jan 1, 2026 00:00:00").getTime();
+        let celebrationStarted = false;
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // LLEGÓ EL 2026
+                document.getElementById("timer").innerHTML = "<div style='font-size:3rem; color:#ffd700'>¡FELIZ AÑO NUEVO!</div>";
+                document.querySelector(".countdown-title").style.display = "none";
+                document.querySelector(".countdown-footer").innerText = "BIENVENIDO 2026";
+                
+                if (!celebrationStarted) {
+                    startConfetti();
+                    celebrationStarted = true;
+                }
+                return;
+            }
+
+            // Cálculos
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Actualizar HTML con ceros a la izquierda
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        // Actualización precisa
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- LÓGICA DE CONFETI (Solo se activa al llegar a 0) ---
+        function startConfetti() {
+            const canvas = document.getElementById("canvas");
+            canvas.style.display = "block";
+            const ctx = canvas.getContext("2d");
+            let W = window.innerWidth;
+            let H = window.innerHeight;
+            canvas.width = W;
+            canvas.height = H;
+            const particles = [];
+            const colors = ["#ffd700", "#ff0000", "#00d2ff", "#ffffff", "#00ff00"];
+
+            for(let i = 0; i < 200; i++) {
+                particles.push({
+                    x: Math.random() * W, y: Math.random() * H - H, r: Math.random() * 6 + 2, d: Math.random() * 200,
+                    color: colors[Math.floor(Math.random() * colors.length)], tilt: Math.floor(Math.random() * 10) - 10,
+                    tiltAngle: 0, tiltAngleIncremental: (Math.random() * 0.07) + 0.05
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, W, H);
+                for (let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    ctx.beginPath(); ctx.lineWidth = p.r / 2; ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + (p.r / 4), p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + (p.r / 4)); ctx.stroke();
+                    p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2; p.tiltAngle += p.tiltAngleIncremental; p.tilt = Math.sin(p.tiltAngle) * 15;
+                    if (p.y > H) particles[i] = { x: Math.random() * W, y: -10, r: p.r, d: p.d, color: p.color, tilt: p.tilt, tiltAngle: p.tiltAngle, tiltAngleIncremental: p.tiltAngleIncremental };
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+            window.addEventListener('resize', () => { W = window.innerWidth; H = window.innerHeight; canvas.width = W; canvas.height = H; });
+        }
+    </script>
+</body>
+</html>
